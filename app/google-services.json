@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "859104260837",
+    "firebase_url": "https://byayamandroid-default-rtdb.firebaseio.com",
+    "project_id": "byayamandroid",
+    "storage_bucket": "byayamandroid.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859104260837:android:5ac9ba5868aa34df739a0c",
+        "android_client_info": {
+          "package_name": "com.example.byayamandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ2fF4HJ2pq6Sp11wRf6Jr378Xu4ywUMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
