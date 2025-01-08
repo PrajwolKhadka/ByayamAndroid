@@ -7,9 +7,9 @@ plugins {
 android {
     namespace = "com.example.byayamandroid"
     compileSdk = 35
-    buildFeatures{
-        viewBinding=true
-    }
+  buildFeatures{
+      viewBinding = true
+  }
     defaultConfig {
         applicationId = "com.example.byayamandroid"
         minSdk = 24
