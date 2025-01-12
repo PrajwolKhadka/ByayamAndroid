@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.byayamandroid.R
 import com.example.byayamandroid.databinding.ActivityLoginBinding
 import com.example.byayamandroid.repository.UserRepositoryImpl
+import com.example.byayamandroid.utils.LoadingUtils
 import com.example.byayamandroid.viewmodel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
 
     lateinit var userViewModel: UserViewModel
+    lateinit var loadingUtils: LoadingUtils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,24 +28,24 @@ class LoginActivity : AppCompatActivity() {
 
         var repo = UserRepositoryImpl()
         userViewModel = UserViewModel(repo)
-
+        loadingUtils=LoadingUtils(this)
         binding.btnLogin.setOnClickListener {
-
+            loadingUtils.show()
             var email :String = binding.editEmail.text.toString()
             var password :String = binding.editPassword.text.toString()
 
             userViewModel.login(email,password){
                     success,message->
                 if(success){
+                    loadingUtils.dismiss()
                     Toast.makeText(this@LoginActivity,message, Toast.LENGTH_LONG).show()
 
                     var intent = Intent(this@LoginActivity,NavigationActivity::class.java)
                     startActivity(intent)
                     finish()
                 }else{
+                    loadingUtils.dismiss()
                     Toast.makeText(applicationContext,message, Toast.LENGTH_LONG).show()
-
-
                 }
             }
         }

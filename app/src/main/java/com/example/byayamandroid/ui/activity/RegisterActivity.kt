@@ -11,6 +11,7 @@ import com.example.byayamandroid.R
 import com.example.byayamandroid.databinding.ActivityRegisterBinding
 import com.example.byayamandroid.model.UserModel
 import com.example.byayamandroid.repository.UserRepositoryImpl
+import com.example.byayamandroid.utils.LoadingUtils
 import com.example.byayamandroid.viewmodel.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -20,15 +21,21 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
 
     lateinit var userViewModel: UserViewModel
+
+    lateinit var loadingUtils: LoadingUtils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-       var repo= UserRepositoryImpl()
+
+        loadingUtils=LoadingUtils(this)
+
+        var repo= UserRepositoryImpl()
         userViewModel= UserViewModel(repo)
         binding.signUp.setOnClickListener{
+            loadingUtils.show()
             var email= binding.registerEmail.text.toString()
             var password= binding.registerPassword.text.toString()
             var firstName= binding.registerFname.text.toString()
@@ -47,9 +54,11 @@ class RegisterActivity : AppCompatActivity() {
                         contact,
                         email
                     )
+
                     userViewModel.addUserToDatabase(userId,userModel){
                             success,message->
                         if(success){
+                            loadingUtils.dismiss()
                             Toast.makeText(
                                 this@RegisterActivity,
                                 message,
@@ -58,6 +67,7 @@ class RegisterActivity : AppCompatActivity() {
                         }
                     }
                 }else{
+                    loadingUtils.dismiss()
                     Toast.makeText(this@RegisterActivity,message,Toast.LENGTH_LONG).show()
                 }
             }
